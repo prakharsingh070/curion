@@ -1,133 +1,205 @@
-# 🏥 Curion - Intelligent Health Assistant
+# Healytics AI (Curion)
 
-> Your caring AI companion for understanding symptoms and making safer health decisions.
+🏥 **Intelligent Symptom Reasoning for Safer Health Decisions**
 
 [![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-purple)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-cyan)](https://tailwindcss.com/)
 
-## 🌟 Overview
+---
 
-Curion is an intelligent health companion that uses adaptive questioning and probabilistic reasoning to help users understand their symptoms. It provides:
+## 🚀 Project Overview
 
-- 🧠 **Intelligent Cross-Questioning** - Adaptive follow-up questions based on your responses
-- 📊 **Probability-Based Reasoning** - Shows likelihood of different conditions
-- 🚨 **Emergency Detection** - Immediate alerts for serious symptoms
-- 🌿 **Safe Guidance** - OTC remedies and home care advice
-- 🔒 **Privacy First** - Your health data stays secure
+Curion (Healytics AI) is an AI-powered health companion that provides intelligent symptom assessment through adaptive questioning, probability-based reasoning, and responsible health guidance.
 
-### ⚠️ Important Disclaimer
+**⚠️ Important:** This is NOT a medical diagnosis tool. Always consult qualified healthcare professionals for medical advice.
 
-**Curion is NOT a replacement for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals for medical concerns.**
+### ✨ Key Features
+
+- 🧠 **Adaptive Cross-Questioning** - Dynamic 3-4 question flow
+- 📊 **Probability-Based Reasoning** - Ranked condition likelihood
+- 🚨 **Emergency Detection** - Instant red-flag identification
+- 🟢🟡🔴 **Severity Classification** - Clear risk level indication
+- 💊 **Safe OTC Guidance** - Only over-the-counter recommendations
+- ⚖️ **Legal Compliance** - Mandatory disclaimers & ethical guardrails
+
+---
+
+## 📁 Project Structure
+
+```
+healytics-ai/
+│
+├── frontend/          # React + Vite + TypeScript UI
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── chat/          # Chat UI components
+│   │   │   └── layout/        # Layout components
+│   │   ├── pages/             # Page components
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── backend/           # API server (FastAPI/Express)
+│   └── Coming soon...
+│
+├── ai-engine/         # LLM integration & reasoning logic
+│   └── Coming soon...
+│
+├── datasets/          # Disease database & symptom mappings
+│   └── Coming soon...
+│
+├── database/          # Database schemas & migrations
+│   └── Coming soon...
+│
+└── docs/              # Complete documentation
+    ├── AI_SYSTEM_PROMPT.md
+    ├── FUNCTIONAL_BLUEPRINT.md
+    ├── PRD.md
+    ├── TRD.md
+    ├── DISEASE_DATABASE_TEMPLATE.md
+    ├── IMPLEMENTATION_ROADMAP.md
+    └── QUICK_REFERENCE.md
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React 18 + TypeScript
+- Vite (build tool)
+- Tailwind CSS (styling)
+- React Router (routing)
+- Framer Motion (animations)
+
+### Backend (Planned)
+- FastAPI (Python) or Express.js (Node.js)
+- MongoDB or PostgreSQL
+- JWT authentication
+
+### AI Engine (Planned)
+- OpenAI API / Open-source LLM
+- Custom symptom reasoning engine
+- Probability calculation algorithms
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Frontend Development
 
-- Node.js 18+ and npm
-- A Supabase account (for backend API)
-
-### Installation
-
-1. **Clone or download this repository**
-
-2. **Install dependencies:**
 ```bash
+cd frontend
 npm install
-```
-
-3. **Configure environment variables:**
-
-Copy the `.env` file and add your Supabase credentials:
-
-```env
-VITE_SUPABASE_URL=your_supabase_url_here
-VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_key_here
-```
-
-4. **Start the development server:**
-```bash
 npm run dev
 ```
 
-5. **Open your browser:**
-Navigate to `http://localhost:5173`
+Visit: http://localhost:5173
+
+### Backend Development (Coming Soon)
+
+```bash
+cd backend
+# Setup instructions coming soon
+```
 
 ---
 
 ## 📚 Documentation
 
-All detailed documentation is available in the `/docs` folder:
+Comprehensive documentation available in `/docs`:
 
-- **[Functional Features Blueprint](docs/FUNCTIONAL_FEATURES.md)** - Complete feature specifications
-- **[Product Requirements (PRD)](docs/PRD.md)** - Product vision and requirements
-- **[Technical Requirements (TRD)](docs/TRD.md)** - Technical architecture and implementation
-- **[AI System Prompt](docs/AI_SYSTEM_PROMPT.md)** - AI behavior guidelines and rules
-- **[Setup Guide](docs/SETUP_GUIDE.md)** - Detailed setup instructions
-
----
-
-## 🏗️ Project Structure
-
-```
-Curion/
-├── src/
-│   ├── components/
-│   │   └── chat/
-│   │       ├── ChatMessage.tsx      # Message display component
-│   │       ├── ChatInput.tsx        # User input component
-│   │       ├── TypingIndicator.tsx  # Loading animation
-│   │       └── Disclaimer.tsx       # Legal disclaimer
-│   ├── pages/
-│   │   └── Index.tsx                # Main chat page
-│   ├── App.tsx                      # Root component
-│   ├── main.tsx                     # Entry point
-│   └── index.css                    # Global styles
-├── docs/                            # Documentation
-├── package.json                     # Dependencies
-├── tsconfig.json                    # TypeScript config
-├── vite.config.ts                   # Vite configuration
-└── tailwind.config.js               # Tailwind CSS config
-```
+- [AI System Prompt](docs/AI_SYSTEM_PROMPT.md) - AI personality & rules
+- [Functional Blueprint](docs/FUNCTIONAL_BLUEPRINT.md) - Complete feature list
+- [Product Requirements (PRD)](docs/PRD.md)
+- [Technical Requirements (TRD)](docs/TRD.md)
+- [Disease Database Template](docs/DISEASE_DATABASE_TEMPLATE.md)
+- [Implementation Roadmap](docs/IMPLEMENTATION_ROADMAP.md)
+- [Quick Reference](docs/QUICK_REFERENCE.md)
 
 ---
 
-## 🛠️ Available Scripts
+## 🔒 Safety & Ethics
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+### What Curion Does:
+✅ Asks intelligent follow-up questions  
+✅ Provides probability-based suggestions  
+✅ Detects emergency symptoms immediately  
+✅ Suggests only OTC medicines  
+✅ Encourages doctor consultation when needed  
+
+### What Curion Does NOT Do:
+❌ Provide confirmed medical diagnosis  
+❌ Replace healthcare professionals  
+❌ Prescribe antibiotics or prescription drugs  
+❌ Store unnecessary personal health data  
 
 ---
 
-## 🎯 Core Features
+## 📊 Development Status
 
-### ✅ Implemented (v1.0)
-- [x] Chat-based interface
-- [x] Streaming AI responses
-- [x] Markdown support in messages
-- [x] Responsive design
-- [x] Loading indicators
-- [x] Legal disclaimer
+**Current Phase:** Phase 1 & 2 - Project Setup & Frontend  
+**Version:** 0.1.0 Alpha  
+**Last Updated:** March 5, 2026
 
-### 🔄 In Progress
-- [ ] Adaptive symptom interview engine
-- [ ] Probability-based disease ranking
-- [ ] Emergency red-flag detection
-- [ ] Severity classification
-- [ ] OTC medicine suggestions
+### Phase 1: Project Setup ✅
+- ✅ Clean folder architecture created
+- ✅ Git repository initialized
+- ✅ Development environment ready
 
-### 📋 Planned (Future)
-- [ ] User risk profiling
-- [ ] Session history tracking
-- [ ] Health dashboard
-- [ ] Voice input support
-- [ ] Multi-language support
-- [ ] Offline mode
+### Phase 2: Frontend ✅
+- ✅ React + Vite + TypeScript setup
+- ✅ Chat interface with typing animation
+- ✅ Responsive UI with Tailwind CSS
+- ✅ Home, Chat, Dashboard, Profile pages
+- ✅ Message history support
+
+### Phase 3: Backend API (Next)
+- ⏳ FastAPI/Express server setup
+- ⏳ Database configuration
+- ⏳ API endpoints
+
+### Phase 4: AI Engine (Upcoming)
+- ⏳ LLM integration
+- ⏳ Symptom reasoning engine
+- ⏳ Probability calculation
+- ⏳ Emergency detection
+
+---
+
+## 🤝 Contributing
+
+This is currently a private development project. Contributions will be opened in future releases.
+
+---
+
+## 📄 License
+
+Copyright © 2026 Healytics AI (Curion). All rights reserved.
+
+---
+
+## 🔗 Links
+
+- **GitHub:** https://github.com/prakharsingh070/curion.git
+- **Documentation:** [/docs](./docs)
+
+---
+
+## 🙏 Acknowledgments
+
+Built with guidance from open medical resources:
+- World Health Organization (WHO)
+- Centers for Disease Control and Prevention (CDC)
+- National Health Service (NHS)
+- MedlinePlus (NIH)
+
+---
+
+**⚕️ Medical Disclaimer:** This application is for informational purposes only and does not constitute medical advice. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
 
 ---
 
