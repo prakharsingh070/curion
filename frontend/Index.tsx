@@ -8,12 +8,14 @@ import { motion } from "framer-motion";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/curion-chat`;
+// Connect to local backend API
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+const CHAT_URL = `${BACKEND_URL}/api/chat/message`;
 
 const INITIAL_MESSAGE: Msg = {
   role: "assistant",
   content:
-    "Hello! I'm Curion, your health assistant. 👋\n\nHow are you feeling today? Please describe any symptoms you're experiencing, and I'll ask some follow-up questions to help you understand what might be going on.\n\n> **Note:** I'm not a doctor and cannot diagnose conditions. Always consult a healthcare professional for medical advice.",
+    "Hello! I'm Curion, your health assistant. 👋\n\nHow are you feeling today? Please describe any symptoms you're experiencing, and I'll ask some follow-up questions to help you understand what might be going on.\n\n> **Note:** I'm not a doctor and cannot diagnose conditions. Always consult a healthcare professional for medical advice.\n\n*Currently running in demo mode (Phase 3). Full AI integration coming in Phase 4.*",
 };
 
 export default function ChatPage() {
@@ -31,65 +33,43 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     setIsLoading(true);
 
-    let assistantSoFar = "";
     try {
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({ 
+          message: input,
+          sessionId: sessionStorage.getItem('curion_session_id') || undefined
+        }),
       });
 
-      if (!resp.ok || !resp.body) {
+      if (!resp.ok) {
         throw new Error(`Request failed: ${resp.status}`);
       }
 
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let textBuffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        textBuffer += decoder.decode(value, { stream: true });
-
-        let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
-          let line = textBuffer.slice(0, newlineIndex);
-          textBuffer = textBuffer.slice(newlineIndex + 1);
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
-              assistantSoFar += content;
-              setMessages((prev) => {
-                const last = prev[prev.length - 1];
-                if (last?.role === "assistant" && prev.length > 1 && prev[prev.length - 2]?.role === "user") {
-                  return prev.map((m, i) => (i === prev.length - 1 ? { ...m, content: assistantSoFar } : m));
-                }
-                return [...prev, { role: "assistant", content: assistantSoFar }];
-              });
-            }
-          } catch {
-            textBuffer = line + "\n" + textBuffer;
-            break;
-          }
-        }
+      const data = await resp.json();
+      
+      // Store session ID for continuity
+      if (data.data?.sessionId) {
+        sessionStorage.setItem('curion_session_id', data.data.sessionId);
+      }
+      
+      // Add AI response to messages
+      if (data.success && data.data?.message) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: data.data.message }
+        ]);
+      } else {
+        throw new Error('Invalid response from server');
       }
     } catch (e) {
       console.error("Chat error:", e);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "I'm sorry, I encountered an error. Please try again." },
+        { role: "assistant", content: "I'm sorry, I encountered an error connecting to the backend. Please make sure the backend server is running on http://localhost:3001\n\nTo start the backend:\n```\ncd backend\nnpm start\n```" },
       ]);
     } finally {
       setIsLoading(false);
